@@ -23,6 +23,7 @@ const Shoe = sequelize.define('shoe', {
   },
   model: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     allowNull: false
   }
 }, { timestamps: false });
@@ -68,7 +69,7 @@ const Quantity = sequelize.define('quantity', {
     allowNull: false,
     references: {
       model: Shoe,
-      key: 'id'
+      key: 'model'
     }
   },
   color_id: {
@@ -100,7 +101,7 @@ const Shoecolor = sequelize.define('shoecolor', {
     allowNull: false,
     references: {
       model: Shoe,
-      key: 'id'
+      key: 'model'
     }
   },
   color_id: {
@@ -119,7 +120,7 @@ const Shoesize = sequelize.define('shoesize', {
     allowNull: false,
     references: {
       model: Shoe,
-      key: 'id'
+      key: 'model'
     }
   },
   size_id: {

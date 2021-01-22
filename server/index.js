@@ -19,6 +19,18 @@ app.post('/shoes', (req, res) => {
   })
 })
 
+app.delete('/shoes/:shoeId', (req, res) => {
+  let shoeId = req.params.shoeId;
+  shoes.remove(shoeId)
+  .then(result => {
+    res.send(result);
+  })
+  .catch(err => {
+    console.error(err);
+    res.end();
+  })
+})
+
 app.get('/shoes/:shoeId/colors', (req, res) => {
   let shoeId = req.params.shoeId;
   shoes.get.colors(shoeId)

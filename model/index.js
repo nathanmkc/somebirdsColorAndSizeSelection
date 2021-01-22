@@ -90,7 +90,40 @@ let create = (shoeData) => {
 });
 }
 
+let remove = (modelNumber) => {
+  return Quantity.destroy({
+    where: {
+      shoe_id: modelNumber
+    }
+  })
+  .then(() => {
+    Shoecolor.destroy({
+      where: {
+        shoe_id: modelNumber
+      }
+    })
+  })
+  .then(() => {
+    Shoesize.destroy({
+      where: {
+        shoe_id: modelNumber
+      }
+    })
+  })
+  .then(() => {
+    Shoe.destroy({
+      where: {
+        model: modelNumber
+      }
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
   module.exports = {
     get: get,
-    create: create
+    create: create,
+    remove: remove
   }
