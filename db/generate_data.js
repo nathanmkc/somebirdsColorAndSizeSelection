@@ -300,6 +300,7 @@ for (let shoeID = 1; shoeID <= NUMBER_OF_SHOES; shoeID++) {
   }
 }
 
+
 Shoe.bulkCreate(shoeBulkData)
 .then (() => {
   Color.bulkCreate(colorBulkData);

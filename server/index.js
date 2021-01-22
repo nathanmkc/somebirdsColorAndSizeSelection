@@ -3,7 +3,21 @@ const app = express();
 const PORT = '3001';
 const shoes = require('../model');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
+
+app.post('/shoes', (req, res) => {
+  console.log(req.body);
+  shoes.create(req.body)
+  .then(result => {
+    res.send(result);
+  })
+  .catch(err => {
+    console.log(err);
+    res.end;
+  })
+})
 
 app.get('/shoes/:shoeId/colors', (req, res) => {
   let shoeId = req.params.shoeId;
