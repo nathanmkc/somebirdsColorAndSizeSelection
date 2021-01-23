@@ -12,6 +12,7 @@ function SizeSelection(props) {
     if(props.colorID) {
       Axios.get(`/shoes/${props.shoeID}/colors/${props.colorID}/quantities`)
       .then(quantities => {
+        console.log(quantities);
         setStock(quantities.data);
       })
       .catch(err => {
@@ -33,7 +34,7 @@ function SizeSelection(props) {
       <p className={styles.heading}>SELECT SIZE: {soldOut && <span className={styles.soldOutNotice}>This item is sold out</span>} </p>
       {stock && <div className={styles.sizeSelectionContainer}>
         {props.sizes.map((size, i) => {
-          return <Size sizeInfo={ size } selected={props.selectedID === size.id} quantity={stock[i].quantity} handleClick={ handleClick }/>
+          return <Size sizeInfo={ size } selected={props.selectedID === size.id} quantity={stock[i] ? stock[i].quantity : 0} handleClick={ handleClick }/>
         })}
       </div>}
       {!stock && <div className={styles.sizeSelectionContainer}>
