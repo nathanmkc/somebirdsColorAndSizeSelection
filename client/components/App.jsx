@@ -35,6 +35,7 @@ function App(props) {
   useEffect(() => {
     Axios.get(`/shoes/${shoeID}/sizes`)
     .then(sizes => {
+      console.log(sizes);
       setSizes(sizes.data);
     })
     .catch(err => {
