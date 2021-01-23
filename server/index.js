@@ -14,7 +14,7 @@ app.post('/shoes', (req, res) => {
   })
   .catch(err => {
     console.error(err);
-    res.status(500).end();
+    res.status(404).end('Error creating new shoe');
   })
 });
 
@@ -22,11 +22,11 @@ app.put('/shoes/:shoeId', (req, res) => {
   let shoeId = req.params.shoeId;
   shoes.update(shoeId, req.body)
   .then(result => {
-    res.status(200).send(result);
+    res.status(200).send('Shoe successfully updated');
   })
   .catch(err => {
     console.error(err);
-    res.status(500).end();
+    res.status(404).end('Error updating shoe');
   })
 });
 
@@ -38,7 +38,7 @@ app.delete('/shoes/:shoeId', (req, res) => {
   })
   .catch(err => {
     console.error(err);
-    res.status(500).end();
+    res.status(404).end('Error deleting shoe');
   })
 });
 

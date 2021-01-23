@@ -85,9 +85,6 @@ let create = (shoeData) => {
   .then(() => {
     Quantity.bulkCreate(shoeData.quantities);
   })
-  .catch(err => {
-    console.error(err);
-  });
 }
 
 let update = (model, shoeData) => {
@@ -166,9 +163,6 @@ let remove = (modelNumber) => {
       }
     })
   })
-  .catch((err) => {
-    console.log(err);
-  });
 }
 
   module.exports = {
