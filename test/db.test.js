@@ -30,10 +30,10 @@ describe('Database', () => {
     })
   });
 
-  it('has a shoecolors table with 2,500 records', () => {
+  it('has a shoecolors table with 1658 records', () => {
     return Shoecolor.findAll({})
     .then(shoecolors => {
-      expect(shoecolors.length).to.equal(2500);
+      expect(shoecolors.length).to.equal(1658);
     })
   });
 
