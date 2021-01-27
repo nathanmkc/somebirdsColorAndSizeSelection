@@ -10,7 +10,7 @@ let shoeBulkData = [];
 gender.forEach(gender => {
   material.forEach(material => {
     action.forEach(action => {
-      shoeBulkData.push({ name: `${gender} ${material} ${action}`, model: model });
+      shoeBulkData.push({ name: `${gender} ${material} ${action}`});
       model++;
     });
   });
@@ -299,8 +299,7 @@ for (let shoeID = 1; shoeID <= NUMBER_OF_SHOES; shoeID++) {
     }
   }
 }
-
-
+console.log(quantityBulkData);
 // Shoe.bulkCreate(shoeBulkData)
 // .then (() => {
 //   Color.bulkCreate(colorBulkData);

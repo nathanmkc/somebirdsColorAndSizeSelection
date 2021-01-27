@@ -81,17 +81,8 @@ const Quantity = sequelize.define('quantity', {
       key: 'id'
     }
   },
-  size_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Size,
-      key: 'id'
-    }
-  },
-  quantity: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
+  quantities: {
+    type: DataTypes.STRING,
     allowNull: false
   }
 }, { timestamps: false });
