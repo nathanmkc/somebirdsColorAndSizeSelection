@@ -301,22 +301,22 @@ for (let shoeID = 1; shoeID <= NUMBER_OF_SHOES; shoeID++) {
 }
 
 
-Shoe.bulkCreate(shoeBulkData)
-.then (() => {
-  Color.bulkCreate(colorBulkData);
-})
-.then (() => {
-  Size.bulkCreate(sizeBulkData);
-})
-.then(() => {
-  Shoecolor.bulkCreate(shoeColorBulkData);
-})
-.then(() => {
-  Shoesize.bulkCreate(shoeSizeBulkData);
-})
-.then(() => {
-  Quantity.bulkCreate(quantityBulkData);
-})
-.catch(err => {
-  console.error(err);
-});
+// Shoe.bulkCreate(shoeBulkData)
+// .then (() => {
+//   Color.bulkCreate(colorBulkData);
+// })
+// .then (() => {
+//   Size.bulkCreate(sizeBulkData);
+// })
+// .then(() => {
+//   Shoecolor.bulkCreate(shoeColorBulkData);
+// })
+// .then(() => {
+//   Shoesize.bulkCreate(shoeSizeBulkData);
+// })
+// .then(() => {
+//   Quantity.bulkCreate(quantityBulkData);
+// })
+// .catch(err => {
+//   console.error(err);
+// });

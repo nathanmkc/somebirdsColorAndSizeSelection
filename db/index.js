@@ -23,6 +23,7 @@ const Shoe = sequelize.define('shoe', {
   },
   model: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
     allowNull: false
   }
