@@ -246,7 +246,7 @@ let model = 1;
 let seeder = async () => {
   await Color.bulkCreate(shoeColors);
   await Size.bulkCreate(shoeSizes);
-  for (var i = 0 ; i < 1000 ; i++) {
+  for (var i = 0 ; i < 10000 ; i++) {
     let shoes = shoeGenerator(1000, model);
     model += 1000;
     await Shoe.bulkCreate(shoes.names);
