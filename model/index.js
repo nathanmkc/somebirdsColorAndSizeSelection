@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 let get = {
   colors: (id) => {
     return new Promise((resolve, reject) => {
-      Shoecolor.findAll({
+      Quantity.findAll({
         where: {
           shoe_id: id
         }
@@ -31,13 +31,17 @@ let get = {
   },
   sizes: (id) => {
     return new Promise((resolve, reject) => {
-      Shoesize.findAll({
+      Shoe.findOne({
         where: {
-          shoe_id: id
+          model: id
         }
       })
-      .then (shoesizes => {
-        return shoesizes.map(x => x.dataValues.size_id);
+      .then (shoe => {
+        if (shoe.dataValues.name.includes('Women\'s')) {
+          return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+        } else {
+          return [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+        }
       })
       .then(sizeIDs => {
         Size.findAll({
@@ -58,14 +62,18 @@ let get = {
   },
   quantity: (shoeID, colorID) => {
     return new Promise((resolve, reject) => {
-      Quantity.findAll({
+      Quantity.findOne({
         where: {
           shoe_id: shoeID,
           color_id: colorID
         }
       })
-      .then(results => {
-        resolve(results.map(x => ({ size_id: x.dataValues.size_id, quantity: x.dataValues.quantity })));
+      .then(result => {
+        let sizes = result.dataValues.quantities.split(' ');
+        resolve(sizes.map(x => {
+          let info = x.split(':');
+          return { size_id: Number(info[0]), quantity: Number(info[1])}
+        }));
       })
       .catch(err => {
         reject(err);
