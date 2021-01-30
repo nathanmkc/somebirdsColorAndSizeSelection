@@ -1,4 +1,4 @@
-const { Shoe, Color, Size, Quantity, Shoecolor, Shoesize } = require('./index.js');
+const { Shoe, Color, Size, Quantity } = require('./index.js');
 
 async function synchronizeModels() {
   try {
@@ -6,9 +6,7 @@ async function synchronizeModels() {
     await Color.sync();
     await Size.sync();
     await Quantity.sync();
-    await Shoecolor.sync();
-    await Shoesize.sync();
-    console.log('Successfully created: shoes, colors, sizes, quantities, shoecolors, and shoesizes tables');
+    console.log('Successfully created: shoes, colors, sizes and quantities tables');
   } catch (error) {
     console.error(error);
   }

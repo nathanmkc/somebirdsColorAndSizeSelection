@@ -54,15 +54,14 @@ Request Body:
   "model": number,
   "colors": [{"shoe_id": number, "color_id": number}],
   "sizes": [{"shoe_id": number, "size_id": number}],
-  "qantities": [{"shoe_id": number, "color_id": number, "size_id": number, "quantity": number}]
+  "qantities": [{"shoe_id": number, "color_id": number, "quantities": string}]
 }
 
 Request Body example:
 { "name": "test shoe",
   "model": 101,
   "colors": [{"shoe_id": 101, "color_id": 1},{"shoe_id": 101, "color_id": 7},{"shoe_id": 101, "color_id": 9},{"shoe_id": 101, "color_id": 14}],
-  "sizes": [{"shoe_id": 101, "size_id": 4},{"shoe_id": 101, "size_id": 7},{"shoe_id": 101, "size_id": 10},{"shoe_id": 101, "size_id": 13}],
-  "quantities": [{"shoe_id": 101, "color_id": 1, "size_id": 4, "quantity": 6}, {"shoe_id": 101, "color_id": 1, "size_id": 7, "quantity": 2}, {"shoe_id": 101, "color_id": 1, "size_id": 10, "quantity": 0}, {"shoe_id": 101, "color_id": 1, "size_id": 13, "quantity": 5}, {"shoe_id": 101, "color_id": 7, "size_id": 4, "quantity": 6}, {"shoe_id": 101, "color_id": 7, "size_id": 7, "quantity": 2}, {"shoe_id": 101, "color_id": 7, "size_id": 10, "quantity": 0}, {"shoe_id": 101, "color_id": 7, "size_id": 13, "quantity": 5}, {"shoe_id": 101, "color_id": 9, "size_id": 4, "quantity": 6}, {"shoe_id": 101, "color_id": 9, "size_id": 7, "quantity": 2}, {"shoe_id": 101, "color_id": 9, "size_id": 10, "quantity": 0}, {"shoe_id": 101, "color_id": 9, "size_id": 13, "quantity": 5}, {"shoe_id": 101, "color_id": 14, "size_id": 4, "quantity": 6}, {"shoe_id": 101, "color_id": 14, "size_id": 7, "quantity": 2}, {"shoe_id": 101, "color_id": 14, "size_id": 10, "quantity": 0}, {"shoe_id": 101, "color_id": 14, "size_id": 13, "quantity": 5}]
+  "quantities": [{"shoe_id": 10, "color_id": 1, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 7, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 9, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 14,  "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}]
 }
 ```
 
@@ -88,12 +87,119 @@ GET quantity of shoe in particular color for each size: '/shoes/:shoeId/colors/:
 #### Output
 
 ```
+Colors:
+[{
+    "id": number,
+    "name": string,
+    "shoe_color": string,
+    "sole_color": string,
+    "shoe_hex": string,
+    "sole_hex": string,
+    "limited": boolean
+}]
+Example response:
+[
+    {
+        "id": 1,
+        "name": "Blue Whale",
+        "shoe_color": "Dodger Blue",
+        "sole_color": "Light Cyan",
+        "shoe_hex": "#1E90FF",
+        "sole_hex": "#E0FFFF",
+        "limited": false
+    },
+    {
+        "id": 7,
+        "name": "Red Waters",
+        "shoe_color": "Crimson",
+        "sole_color": "Aqua",
+        "shoe_hex": "#DC143C",
+        "sole_hex": "#00FFFF",
+        "limited": false
+    },
+    {
+        "id": 9,
+        "name": "Cement",
+        "shoe_color": "Light Gray",
+        "sole_color": "Dark Gray",
+        "shoe_hex": "#D3D3D3",
+        "sole_hex": "#A9A9A9",
+        "limited": false
+    },
+    {
+        "id": 14,
+        "name": "Azure Canyon",
+        "shoe_color": "Dark Cyan",
+        "sole_color": "Pale Goldenrod",
+        "shoe_hex": "#008B8B",
+        "sole_hex": "#EEE8AA",
+        "limited": true
+    }
+]
+
+Sizes:
+[{
+    "id": number,
+    "size": number
+}]
+Example Response:
+[
+    {
+        "id": 7,
+        "size": 8
+    },
+    {
+        "id": 8,
+        "size": 8.5
+    },
+    {
+        "id": 9,
+        "size": 9
+    },
+    {
+        "id": 10,
+        "size": 9.5
+    },
+    {
+        "id": 11,
+        "size": 10
+    },
+    {
+        "id": 12,
+        "size": 10.5
+    },
+    {
+        "id": 13,
+        "size": 11
+    },
+    {
+        "id": 14,
+        "size": 11.5
+    },
+    {
+        "id": 15,
+        "size": 12
+    },
+    {
+        "id": 16,
+        "size": 12.5
+    },
+    {
+        "id": 17,
+        "size": 13
+    },
+    {
+        "id": 18,
+        "size": 13.5
+    }
+]
+
+Quantities:
 [{
   "size_id": number,
   "quantity": number
 }]
-
-Response example:
+Example Response:
   [
     {
         "size_id": 7,
@@ -158,10 +264,10 @@ Response example:
 Endpoint: `/shoes/:shoeId`
 
 Request Body:
-{ "color_id": number, "size_id": number, "quantity": number }
+{ "color_id": number "quantities": string }
 
 Request Body example:
-{"color_id": 7, "size_id": 2, "quantity": 11}
+{ "color_id": 7, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6" }
 ```
 
 #### Output

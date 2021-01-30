@@ -87,49 +87,11 @@ const Quantity = sequelize.define('quantity', {
   }
 }, { timestamps: false });
 
-const Shoecolor = sequelize.define('shoecolor', {
-  shoe_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Shoe,
-      key: 'model'
-    }
-  },
-  color_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Color,
-      key: 'id'
-    }
-  }
-}, { timestamps: false });
 
-const Shoesize = sequelize.define('shoesize', {
-  shoe_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Shoe,
-      key: 'model'
-    }
-  },
-  size_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Size,
-      key: 'id'
-    }
-  }
-}, { timestamps: false });
 
 module.exports = {
   Shoe: Shoe,
   Color: Color,
   Size: Size,
-  Quantity: Quantity,
-  Shoecolor: Shoecolor,
-  Shoesize: Shoesize
+  Quantity: Quantity
 };
