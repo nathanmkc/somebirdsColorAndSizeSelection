@@ -1,12 +1,9 @@
-const { Shoe, Color, Size, Quantity } = require('./index.js');
+const { sequelize } = require('./index.js');
 
 async function synchronizeModels() {
   try {
-    await Shoe.sync();
-    await Color.sync();
-    await Size.sync();
-    await Quantity.sync();
-    console.log('Successfully created: shoes, colors, sizes and quantities tables');
+    await sequelize.sync({ force: true });
+    console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error(error);
   }
