@@ -1,5 +1,6 @@
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
-const { Shoe, Color, Size, Quantity } = require('./index.js');
+//const { Shoe, Color, Size, Quantity } = require('./index.js'); //mySQL models
+const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
 
 const lorem = new LoremIpsum({
   wordsPerSentence: {
@@ -27,7 +28,7 @@ const shoeGenerator = (count, model) => {
       sizeIds = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
     }
     const colorIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-    shoes.names.push({name: (woman ? 'Women\'s ' : 'Men\'s ') + lorem.generateWords(getRandomInt(2,4))});
+    shoes.names.push({model: model, name: (woman ? 'Women\'s ' : 'Men\'s ') + lorem.generateWords(getRandomInt(2,4))});
 
     for (var k = 0 ; k < getRandomInt(17, 22) ; k++) {
       colorIds.splice(getRandomInt(0, colorIds.length), 1);
@@ -40,9 +41,10 @@ const shoeGenerator = (count, model) => {
   return shoes;
 }
 
-const shoeSizes = [{size: '5'}, {size: '5.5'}, {size: '6'}, {size: '6.5'}, {size: '7'}, {size: '7.5'}, {size: '8'}, {size: '8.5'}, {size: '9'}, {size: '9.5'}, {size: '10'}, {size: '10.5'}, {size: '11'}, {size: '11.5'}, {size: '12'}, {size: '12.5'}, {size: '13'}, {size: '13.5'}];
+const shoeSizes = [{id: 1, size: '5'}, {id: 2, size: '5.5'}, {id: 3, size: '6'}, {id: 4, size: '6.5'}, {id: 5, size: '7'}, {id: 6, size: '7.5'}, {id: 7, size: '8'}, {id: 8, size: '8.5'}, {id: 9, size: '9'}, {id: 10, size: '9.5'}, {id: 11, size: '10'}, {id: 12, size: '10.5'}, {id: 13, size: '11'}, {id: 14, size: '11.5'}, {id: 15, size: '12'}, {id: 16, size: '12.5'}, {id: 17, size: '13'}, {id: 18, size: '13.5'}, {id: 19, size: '14'}];
 
 const shoeColors = [{
+  id: 1,
   name: 'Blue Whale',
   shoe_color: 'Dodger Blue',
   sole_color: 'Light Cyan',
@@ -51,6 +53,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 2,
   name: 'Red Sky',
   shoe_color: 'Orange Red',
   sole_color: 'Light Sky Blue',
@@ -59,6 +62,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 3,
   name: 'Green Lake',
   shoe_color: 'Dark Sea Green',
   sole_color: 'Sea Green',
@@ -67,6 +71,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 4,
   name: 'Cosmos',
   shoe_color: 'Dark Slate Blue',
   sole_color: 'Indigo',
@@ -75,6 +80,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 5,
   name: 'Pink Plunge',
   shoe_color: 'Hot Pink',
   sole_color: 'Deep Pink',
@@ -83,6 +89,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 6,
   name: 'Blue Burst',
   shoe_color: 'Deep Sky Blue',
   sole_color: 'Navy',
@@ -91,6 +98,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 7,
   name: 'Red Waters',
   shoe_color: 'Crimson',
   sole_color: 'Aqua',
@@ -99,6 +107,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 8,
   name: 'White Washed',
   shoe_color: 'Alice Blue',
   sole_color: 'Ivory',
@@ -107,6 +116,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 9,
   name: 'Cement',
   shoe_color: 'Light Gray',
   sole_color: 'Dark Gray',
@@ -115,6 +125,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 10,
   name: 'Woodworks',
   shoe_color: 'Burly Wood',
   sole_color: 'Saddle Brown',
@@ -123,6 +134,7 @@ const shoeColors = [{
   limited: false
 },
 {
+  id: 11,
   name: 'Blue Lagoon',
   shoe_color: 'Medium Blue',
   sole_color: 'Light Sky Blue',
@@ -131,6 +143,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 12,
   name: 'Aurora Borealis',
   shoe_color: 'Chartreuse',
   sole_color: 'Lime',
@@ -139,6 +152,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 13,
   name: 'Pale Wood',
   shoe_color: 'Moccasin',
   sole_color: 'Papaya Whip',
@@ -147,6 +161,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 14,
   name: 'Azure Canyon',
   shoe_color: 'Dark Cyan',
   sole_color: 'Pale Goldenrod',
@@ -155,6 +170,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 15,
   name: 'Burning Desire',
   shoe_color: 'Crimson',
   sole_color: 'Red',
@@ -163,6 +179,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 16,
   name: 'Sunset',
   shoe_color: 'Coral',
   sole_color: 'Orange Red',
@@ -171,6 +188,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 17,
   name: 'New Moon',
   shoe_color: 'Dark Slate Gray',
   sole_color: 'Black',
@@ -179,6 +197,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 18,
   name: 'Harvest Moon',
   shoe_color: 'Orange',
   sole_color: 'Dark Orange',
@@ -187,6 +206,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 19,
   name: 'Sea Breeze',
   shoe_color: 'Pale Turquoise',
   sole_color: 'Light Cyan',
@@ -195,6 +215,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 20,
   name: 'Galaxy',
   shoe_color: 'Gainsboro',
   sole_color: 'Dark Gray',
@@ -203,6 +224,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 21,
   name: 'Lavender Dream',
   shoe_color: 'Lavender',
   sole_color: 'Plum',
@@ -211,6 +233,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 22,
   name: 'Orange Crush',
   shoe_color: 'Orange',
   sole_color: 'White',
@@ -219,6 +242,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 23,
   name: 'Quasimodo',
   shoe_color: 'Gold',
   sole_color: 'Dark Orchid',
@@ -227,6 +251,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 24,
   name: 'Spriest',
   shoe_color: 'Dark Magenta',
   sole_color: 'Indigo',
@@ -235,6 +260,7 @@ const shoeColors = [{
   limited: true
 },
 {
+  id: 25,
   name: 'Manzanilla',
   shoe_color: 'Olive',
   sole_color: 'Fire Brick',
@@ -242,15 +268,29 @@ const shoeColors = [{
   sole_hex: '#B22222',
   limited: true
 }]
+
 let model = 1;
-let seeder = async () => {
-  await Color.bulkCreate(shoeColors);
-  await Size.bulkCreate(shoeSizes);
+
+let seeder = async () => { //postgres seeder
+  await Colors.bulkCreate(shoeColors);
+  await Sizes.bulkCreate(shoeSizes);
   for (var i = 0 ; i < 10000 ; i++) {
     let shoes = shoeGenerator(1000, model);
     model += 1000;
-    await Shoe.bulkCreate(shoes.names);
-    await Quantity.bulkCreate(shoes.quantities);
+    await Shoes.bulkCreate(shoes.names);
+    await Quantities.bulkCreate(shoes.quantities);
   }
 }
+
+// let seeder = async () => { //mySQL seeder
+//   await Color.bulkCreate(shoeColors);
+//   await Size.bulkCreate(shoeSizes);
+//   for (var i = 0 ; i < 10000 ; i++) {
+//     let shoes = shoeGenerator(1000, model);
+//     model += 1000;
+//     await Shoe.bulkCreate(shoes.names);
+//     await Quantity.bulkCreate(shoes.quantities);
+//   }
+// }
+
 seeder();

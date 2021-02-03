@@ -1,22 +1,15 @@
 require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('fec_somebirds_shoeinventory', 'student', '', {
-  host: process.env.DEV_DB_HOST || 'fec-somebirds.cvmpdjgctjaa.us-east-2.rds.amazonaws.com',
-  port: 3306,
-  dialect: 'mysql',
+//const sequelize = new Sequelize(`postgres://me:${process.env.DEV_DB_PASS}@${process.env.DEV_DB_HOST}:5432/sdc_somebirds_shoeinventory`);
+
+const sequelize = new Sequelize('sdc_somebirds_shoeinventory', 'me', process.env.DEV_DB_PASS, {
+  host: 'localhost',
+  dialect: 'postgres',
   logging: false
 });
 
-// sequelize.authenticate()
-// .then(() => {
-//   console.log('Connection has been established successfully.');
-// })
-// .catch((error) => {
-//   console.error('Unable to connect to the database:', error);
-// });
-
-const Shoe = sequelize.define('shoe', {
+const Shoes = sequelize.define("shoes", {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -27,9 +20,13 @@ const Shoe = sequelize.define('shoe', {
     primaryKey: true,
     allowNull: false
   }
-}, { timestamps: false });
+}, {
+  freezeTableName: true,
+  tableName: "shoes",
+  timestamps: false
+});
 
-const Color = sequelize.define('color', {
+const Colors = sequelize.define("colors", {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -55,21 +52,29 @@ const Color = sequelize.define('color', {
     defaultValue: false,
     allowNull: false
   }
-}, { timestamps: false });
+}, {
+  freezeTableName: true,
+  tableName: "colors",
+  timestamps: false
+});
 
-const Size = sequelize.define('size', {
+const Sizes = sequelize.define("sizes", {
   size: {
     type: DataTypes.FLOAT,
     allowNull: false
   }
-}, { timestamps: false });
+}, {
+  freezeTableName: true,
+  tableName: "sizes",
+  timestamps: false
+});
 
-const Quantity = sequelize.define('quantity', {
+const Quantities = sequelize.define("quantities", {
   shoe_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Shoe,
+      model: Shoes,
       key: 'model'
     }
   },
@@ -77,7 +82,7 @@ const Quantity = sequelize.define('quantity', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Color,
+      model: Colors,
       key: 'id'
     }
   },
@@ -85,14 +90,15 @@ const Quantity = sequelize.define('quantity', {
     type: DataTypes.STRING,
     allowNull: false
   }
-}, { timestamps: false });
-
-
+}, {
+  freezeTableName: true,
+  tableName: "quantities",
+  timestamps: false
+});
 
 module.exports = {
-  Shoe: Shoe,
-  Color: Color,
-  Size: Size,
-  Quantity: Quantity,
-  sequelize: sequelize
+  Shoes: Shoes,
+  Colors: Colors,
+  Sizes: Sizes,
+  Quantities: Quantities
 };
