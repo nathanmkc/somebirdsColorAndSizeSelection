@@ -1,5 +1,6 @@
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
-const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js');
+//const { Shoe, Color, Size, Quantity } = require('./index.js'); //mySQL models
+const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
 
 const lorem = new LoremIpsum({
   wordsPerSentence: {
@@ -269,7 +270,8 @@ const shoeColors = [{
 }]
 
 let model = 1;
-let seeder = async () => {
+
+let seeder = async () => { //postgres seeder
   await Colors.bulkCreate(shoeColors);
   await Sizes.bulkCreate(shoeSizes);
   for (var i = 0 ; i < 10000 ; i++) {
@@ -279,4 +281,16 @@ let seeder = async () => {
     await Quantities.bulkCreate(shoes.quantities);
   }
 }
+
+// let seeder = async () => { //mySQL seeder
+//   await Color.bulkCreate(shoeColors);
+//   await Size.bulkCreate(shoeSizes);
+//   for (var i = 0 ; i < 10000 ; i++) {
+//     let shoes = shoeGenerator(1000, model);
+//     model += 1000;
+//     await Shoe.bulkCreate(shoes.names);
+//     await Quantity.bulkCreate(shoes.quantities);
+//   }
+// }
+
 seeder();
