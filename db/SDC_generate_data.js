@@ -2,6 +2,7 @@ const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 //const { Shoe, Color, Size, Quantity } = require('./index.js'); //mySQL models
 //const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
 const db = require('./couchDB.js');
+const { getRandomInt } = require('./getRandomInt.js')
 
 const lorem = new LoremIpsum({
   wordsPerSentence: {
@@ -10,9 +11,6 @@ const lorem = new LoremIpsum({
   }
 });
 
-const getRandomInt = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
-}
 
 const sqlShoeGenerator = (count, model) => {
   function getRandomInt(min, max) {
@@ -325,10 +323,11 @@ let model = 1;
 
 let couchdbSeeder = async () => {
   console.time('test');
-  for (var i = 0 ; i < 10000 ; i++) {
+  for (var i = 0 ; i < 1 ; i++) {
     let shoes = couchShoeGenerator(1000, model);
     model += 1000;
-    let res = await db.bulk({ docs: shoes });
+    // let res = await db.bulk({ docs: shoes });
+    console.log(shoes);
   }
   console.timeEnd('test');
 }
