@@ -1,6 +1,8 @@
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 //const { Shoe, Color, Size, Quantity } = require('./index.js'); //mySQL models
-const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
+//const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
+const db = require('./couchDB.js');
+const { getRandomInt } = require('./getRandomInt.js')
 
 const lorem = new LoremIpsum({
   wordsPerSentence: {
@@ -9,7 +11,8 @@ const lorem = new LoremIpsum({
   }
 });
 
-const shoeGenerator = (count, model) => {
+
+const sqlShoeGenerator = (count, model) => {
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
@@ -40,6 +43,53 @@ const shoeGenerator = (count, model) => {
   }
   return shoes;
 }
+
+const couchShoeGenerator = (count, model) => {
+  let shoes = [];
+  for (var i = 0 ; i < count ; i++) {
+    let sizeIds;
+    let woman;
+    if (getRandomInt(0,10) % 2 === 0) {
+      woman = true;
+      sizeIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    } else {
+      woman = false;
+      sizeIds = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    }
+    const colorIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+
+    for (var k = 0 ; k < getRandomInt(17, 22) ; k++) {
+      colorIds.splice(getRandomInt(0, colorIds.length), 1);
+    }
+
+    let shoe = {};
+    shoe.model= model;
+    shoe.name = (woman ? 'Women\'s ' : 'Men\'s ') + lorem.generateWords(getRandomInt(2,4));
+    shoe.colors = {};
+
+    for (var l = 0 ; l < colorIds.length ; l++) {
+      shoe.colors[colorIds[l]] = `${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)} ${getRandomInt(0, 9)}`;
+    }
+
+    shoes.push(shoe);
+    model++;
+  }
+  return shoes;
+}
+
+// let schema = {
+//   model: number,
+//   shoe: {
+//     name: string,
+//     colors: [{
+//       color_id: number,
+//       quantities: [{
+//         size_id: number,
+//         quantity: number
+//       }]
+//     }]
+//   }
+// }
 
 const shoeSizes = [{id: 1, size: '5'}, {id: 2, size: '5.5'}, {id: 3, size: '6'}, {id: 4, size: '6.5'}, {id: 5, size: '7'}, {id: 6, size: '7.5'}, {id: 7, size: '8'}, {id: 8, size: '8.5'}, {id: 9, size: '9'}, {id: 10, size: '9.5'}, {id: 11, size: '10'}, {id: 12, size: '10.5'}, {id: 13, size: '11'}, {id: 14, size: '11.5'}, {id: 15, size: '12'}, {id: 16, size: '12.5'}, {id: 17, size: '13'}, {id: 18, size: '13.5'}, {id: 19, size: '14'}];
 
@@ -271,26 +321,39 @@ const shoeColors = [{
 
 let model = 1;
 
-let seeder = async () => { //postgres seeder
-  await Colors.bulkCreate(shoeColors);
-  await Sizes.bulkCreate(shoeSizes);
-  for (var i = 0 ; i < 10000 ; i++) {
-    let shoes = shoeGenerator(1000, model);
+let couchdbSeeder = async () => {
+  console.time('test');
+  for (var i = 0 ; i < 1 ; i++) {
+    let shoes = couchShoeGenerator(1000, model);
     model += 1000;
-    await Shoes.bulkCreate(shoes.names);
-    await Quantities.bulkCreate(shoes.quantities);
+    // let res = await db.bulk({ docs: shoes });
+    console.log(shoes);
   }
+  console.timeEnd('test');
 }
 
-// let seeder = async () => { //mySQL seeder
+// let postgresSeeder = async () => { //postgres seeder
+//   await Colors.bulkCreate(shoeColors);
+//   await Sizes.bulkCreate(shoeSizes);
+//   for (var i = 0 ; i < 10000 ; i++) {
+//     let shoes = sqlShoeGenerator(1000, model);
+//     model += 1000;
+//     await Shoes.bulkCreate(shoes.names);
+//     await Quantities.bulkCreate(shoes.quantities);
+//   }
+// }
+
+// let mysqlSeeder = async () => { //mySQL seeder
 //   await Color.bulkCreate(shoeColors);
 //   await Size.bulkCreate(shoeSizes);
 //   for (var i = 0 ; i < 10000 ; i++) {
-//     let shoes = shoeGenerator(1000, model);
+//     let shoes = sqlShoeGenerator(1000, model);
 //     model += 1000;
 //     await Shoe.bulkCreate(shoes.names);
 //     await Quantity.bulkCreate(shoes.quantities);
 //   }
 // }
 
-seeder();
+couchdbSeeder();
+//postgresSeeder();
+//mysqlSeeder();
