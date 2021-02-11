@@ -1,10 +1,11 @@
-const { Shoe, Color, Size, Quantity } = require('../db/index.js');
+//const { Shoe, Color, Size, Quantity } = require('../db/index.js'); //mySQL models
+const { Shoes, Colors, Sizes, Quantities } = require('../db/postgresDB.js'); //PostgreSQL models
 const { Op } = require('sequelize');
 
 let get = {
   colors: (id) => {
     return new Promise((resolve, reject) => {
-      Quantity.findAll({
+      Quantities.findAll({
         where: {
           shoe_id: id
         }
@@ -13,7 +14,7 @@ let get = {
         return shoeColors.map(x => x.dataValues.color_id);
       })
       .then(colorIDs => {
-        Color.findAll({
+        Colors.findAll({
           where: {
             id: {
               [Op.or]: colorIDs
@@ -31,7 +32,7 @@ let get = {
   },
   sizes: (id) => {
     return new Promise((resolve, reject) => {
-      Shoe.findOne({
+      Shoes.findOne({
         where: {
           model: id
         }
@@ -44,7 +45,7 @@ let get = {
         }
       })
       .then(sizeIDs => {
-        Size.findAll({
+        Sizes.findAll({
           where: {
             id: {
               [Op.or]: sizeIDs
@@ -62,7 +63,7 @@ let get = {
   },
   quantity: (shoeID, colorID) => {
     return new Promise((resolve, reject) => {
-      Quantity.findOne({
+      Quantities.findOne({
         where: {
           shoe_id: shoeID,
           color_id: colorID
@@ -83,14 +84,14 @@ let get = {
 }
 
 let create = (shoeData) => {
-  return Shoe.create({name: shoeData.name, model: shoeData.model})
+  return Shoes.create({name: shoeData.name, model: shoeData.model})
   .then(() => {
-    Quantity.bulkCreate(shoeData.quantities);
+    Quantities.bulkCreate(shoeData.quantities);
   })
 }
 
 let update = (model, shoeData) => {
-  return Quantity.findAll({
+  return Quantities.findAll({
     where: {
       shoe_id: model,
       color_id: shoeData.color_id
@@ -98,9 +99,9 @@ let update = (model, shoeData) => {
   })
   .then((results) => {
     if (results.length === 0) {
-      Quantity.create({shoe_id: model, color_id: shoeData.color_id, quantities: shoeData.quantities})
+      Quantities.create({shoe_id: model, color_id: shoeData.color_id, quantities: shoeData.quantities})
     } else {
-      Quantity.update({quantities: shoeData.quantities}, {
+      Quantities.update({quantities: shoeData.quantities}, {
         where: {
           shoe_id: model,
           color_id: shoeData.color_id
@@ -111,13 +112,13 @@ let update = (model, shoeData) => {
 }
 
 let remove = (modelNumber) => {
-  return Quantity.destroy({
+  return Quantities.destroy({
     where: {
       shoe_id: modelNumber
     }
   })
   .then(() => {
-    Shoe.destroy({
+    Shoes.destroy({
       where: {
         model: modelNumber
       }
