@@ -44,7 +44,7 @@ and point your browser to **localhost:3001**
 
 #### Input
 
-- Request with JSON object in body containing the name of the new shoe, it's model number, an array of the colors the shoe is available in, an array of the sizes the shoe is available in, and an array of the quantities available for each color/size combination of that shoe.
+- Request with JSON object in body containing the name of the new shoe, it's model number, and an array of strings containing quantities available for each color/size combination of that shoe.
 
 ```
 Endpoint: `/shoes`
@@ -60,7 +60,6 @@ Request Body:
 Request Body example:
 { "name": "test shoe",
   "model": 101,
-  "colors": [{"shoe_id": 101, "color_id": 1},{"shoe_id": 101, "color_id": 7},{"shoe_id": 101, "color_id": 9},{"shoe_id": 101, "color_id": 14}],
   "quantities": [{"shoe_id": 10, "color_id": 1, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 7, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 9, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 14,  "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}]
 }
 ```

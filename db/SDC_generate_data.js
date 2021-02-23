@@ -1,7 +1,7 @@
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 //const { Shoe, Color, Size, Quantity } = require('./index.js'); //mySQL models
-//const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
-const db = require('./couchDB.js');
+const { Shoes, Colors, Sizes, Quantities } = require('./postgresDB.js'); //Postgres models
+//const db = require('./couchDB.js');
 const { getRandomInt } = require('./getRandomInt.js')
 
 const lorem = new LoremIpsum({
@@ -321,27 +321,27 @@ const shoeColors = [{
 
 let model = 1;
 
-let couchdbSeeder = async () => {
-  console.time('test');
-  for (var i = 0 ; i < 1 ; i++) {
-    let shoes = couchShoeGenerator(1000, model);
-    model += 1000;
-    // let res = await db.bulk({ docs: shoes });
-    console.log(shoes);
-  }
-  console.timeEnd('test');
-}
-
-// let postgresSeeder = async () => { //postgres seeder
-//   await Colors.bulkCreate(shoeColors);
-//   await Sizes.bulkCreate(shoeSizes);
-//   for (var i = 0 ; i < 10000 ; i++) {
-//     let shoes = sqlShoeGenerator(1000, model);
+// let couchdbSeeder = async () => {
+//   console.time('test');
+//   for (var i = 0 ; i < 1 ; i++) {
+//     let shoes = couchShoeGenerator(1000, model);
 //     model += 1000;
-//     await Shoes.bulkCreate(shoes.names);
-//     await Quantities.bulkCreate(shoes.quantities);
+//     // let res = await db.bulk({ docs: shoes });
+//     console.log(shoes);
 //   }
+//   console.timeEnd('test');
 // }
+
+let postgresSeeder = async () => { //postgres seeder
+  await Colors.bulkCreate(shoeColors);
+  await Sizes.bulkCreate(shoeSizes);
+  for (var i = 0 ; i < 10000 ; i++) {
+    let shoes = sqlShoeGenerator(1000, model);
+    model += 1000;
+    await Shoes.bulkCreate(shoes.names);
+    await Quantities.bulkCreate(shoes.quantities);
+  }
+}
 
 // let mysqlSeeder = async () => { //mySQL seeder
 //   await Color.bulkCreate(shoeColors);
@@ -354,6 +354,6 @@ let couchdbSeeder = async () => {
 //   }
 // }
 
-couchdbSeeder();
-//postgresSeeder();
+//couchdbSeeder();
+postgresSeeder();
 //mysqlSeeder();
