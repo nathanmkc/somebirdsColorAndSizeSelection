@@ -59,7 +59,7 @@ Request Body:
 
 Request Body example:
 { "name": "test shoe",
-  "model": 101,
+  "model": 10,
   "quantities": [{"shoe_id": 10, "color_id": 1, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 7, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 9, "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}, {"shoe_id": 10, "color_id": 14,  "quantities": "7:1 8:1 9:2 10:1 11:9 12:0 13:4 14:8 15:1 16:0 17:2 18:0 19:6"}]
 }
 ```

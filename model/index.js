@@ -75,6 +75,7 @@ let get = {
           let info = x.split(':');
           return { size_id: Number(info[0]), quantity: Number(info[1])}
         }));
+        //resolve('success');
       })
       .catch(err => {
         reject(err);
