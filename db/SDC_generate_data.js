@@ -332,10 +332,10 @@ let model = 1;
 //   console.timeEnd('test');
 // }
 
-let postgresSeeder = async () => { //postgres seeder
+let postgresSeeder = async (loops) => { //postgres seeder
   await Colors.bulkCreate(shoeColors);
   await Sizes.bulkCreate(shoeSizes);
-  for (var i = 0 ; i < 10000 ; i++) {
+  for (var i = 0 ; i < loops ; i++) {
     let shoes = sqlShoeGenerator(1000, model);
     model += 1000;
     await Shoes.bulkCreate(shoes.names);
@@ -355,5 +355,5 @@ let postgresSeeder = async () => { //postgres seeder
 // }
 
 //couchdbSeeder();
-postgresSeeder();
+postgresSeeder(10000);
 //mysqlSeeder();

@@ -3,8 +3,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 //const sequelize = new Sequelize(`postgres://me:${process.env.DEV_DB_PASS}@${process.env.DEV_DB_HOST}:5432/sdc_somebirds_shoeinventory`);
 
-const sequelize = new Sequelize('sdc_somebirds_shoeinventory', 'me', process.env.DEV_DB_PASS, {
-  host: 'localhost',
+const sequelize = new Sequelize('fec_somebirds_shoeinventory', 'ubuntu', process.env.DEV_DB_PASS, {
+  host: process.env.DEV_DB_HOST,
   dialect: 'postgres',
   logging: false
 });
