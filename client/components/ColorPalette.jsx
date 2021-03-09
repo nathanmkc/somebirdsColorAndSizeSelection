@@ -7,13 +7,15 @@ function ColorPalette(props) {
   const [isLimited, setLimited] = useState(false);
 
   useEffect(() => {
-    if (Array.isArray(props.colors) && props.colors.length > 0) {
-      setLimited(props.colors[0].limited);
-    }
-    if (props.colors[0].limited === false) {
-      let color = props.colors[0];
-      props.setClassic(`${color.name} (${color.shoe_color}/${color.sole_color})`);
-      props.setColor(props.colors[0].id);
+    if (props.colors.length >0) {
+      if (Array.isArray(props.colors)) {
+        setLimited(props.colors[0].limited);
+      }
+      if (props.colors[0].limited === false) {
+        let color = props.colors[0];
+        props.setClassic(`${color.name} (${color.shoe_color}/${color.sole_color})`);
+        props.setColor(props.colors[0].id);
+      }
     }
   }, [props.colors]);
 
