@@ -7,7 +7,7 @@ function ColorPalette(props) {
   const [isLimited, setLimited] = useState(false);
 
   useEffect(() => {
-    if (Array.isArray(props.colors)) {
+    if (Array.isArray(props.colors) && props.colors.length > 0) {
       setLimited(props.colors[0].limited);
     }
     if (props.colors[0].limited === false) {
