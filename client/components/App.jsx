@@ -46,8 +46,8 @@ function App(props) {
   return (
       <div className={styles.appContainer}>
         {render && <div>
-          <ColorPalette colors={ classicColors } selection={ classicSelection } setClassic={ setClassicSelection } setLimited={ setLimitedSelection } setColor={ setColorID } selectedID={ colorID } setSize={ setSizeID } setInStock={setInStock}/>
-          <ColorPalette colors={ limitedColors } selection={ limitedSelection } setClassic={ setClassicSelection } setLimited={ setLimitedSelection } setColor={ setColorID } selectedID={ colorID } setSize={ setSizeID } setInStock={setInStock}/>
+          <ColorPalette colors={ classicColors || []} selection={ classicSelection } setClassic={ setClassicSelection } setLimited={ setLimitedSelection } setColor={ setColorID } selectedID={ colorID } setSize={ setSizeID } setInStock={setInStock}/>
+          <ColorPalette colors={ limitedColors || [] } selection={ limitedSelection } setClassic={ setClassicSelection } setLimited={ setLimitedSelection } setColor={ setColorID } selectedID={ colorID } setSize={ setSizeID } setInStock={setInStock}/>
           <SizeSelection shoeID={ shoeID } colorID={ colorID } sizes={ sizes } setSize={ setSizeID } selectedID={ sizeID } setInStock={setInStock} inStock={inStock}/>
           <SizeChart />
           <PurchaseButton inStock={inStock} colorID={colorID} sizeID={sizeID}/>

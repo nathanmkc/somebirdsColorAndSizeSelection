@@ -56,11 +56,12 @@ const couchShoeGenerator = (count, model) => {
       woman = false;
       sizeIds = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
     }
-    const colorIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+    const colorIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 
     for (var k = 0 ; k < getRandomInt(17, 22) ; k++) {
       colorIds.splice(getRandomInt(0, colorIds.length), 1);
     }
+    colorIds.push(25);
 
     let shoe = {};
     shoe.model= model;
@@ -340,6 +341,7 @@ let postgresSeeder = async (loops) => { //postgres seeder
     model += 1000;
     await Shoes.bulkCreate(shoes.names);
     await Quantities.bulkCreate(shoes.quantities);
+    console.log('model ' + model + ' seeded')
   }
 }
 
