@@ -30,12 +30,13 @@ const sqlShoeGenerator = (count, model) => {
       woman = false;
       sizeIds = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
     }
-    const colorIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+    const colorIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
     shoes.names.push({model: model, name: (woman ? 'Women\'s ' : 'Men\'s ') + lorem.generateWords(getRandomInt(2,4))});
 
     for (var k = 0 ; k < getRandomInt(17, 22) ; k++) {
       colorIds.splice(getRandomInt(0, colorIds.length), 1);
     }
+    colorIds.push(25);
     for (var l = 0 ; l < colorIds.length ; l++) {
       shoes.quantities.push({shoe_id: model, color_id: colorIds[l],  quantities: `${sizeIds[0]}:${getRandomInt(0, 9)} ${sizeIds[1]}:${getRandomInt(0, 9)} ${sizeIds[2]}:${getRandomInt(0, 9)} ${sizeIds[3]}:${getRandomInt(0, 9)} ${sizeIds[4]}:${getRandomInt(0, 9)} ${sizeIds[5]}:${getRandomInt(0, 9)} ${sizeIds[6]}:${getRandomInt(0, 9)} ${sizeIds[7]}:${getRandomInt(0, 9)} ${sizeIds[8]}:${getRandomInt(0, 9)} ${sizeIds[9]}:${getRandomInt(0, 9)} ${sizeIds[10]}:${getRandomInt(0, 9)} ${sizeIds[11]}:${getRandomInt(0, 9)} ${sizeIds[12]}:${getRandomInt(0, 9)}`});
     }

@@ -4,6 +4,14 @@ const compression = require('compression');
 const app = express();
 const PORT = '3001';
 const shoes = require('../model');
+const redis = require('redis');
+
+const redisPort = 6379;
+const client = redis.createClient(redisPort);
+
+client.on("error", (err) => {
+  console.log(err);
+})
 
 app.use(compression());
 app.use(express.json());
@@ -71,14 +79,30 @@ app.get('/shoes/:shoeId/sizes', (req, res) => {
 
 app.get('/shoes/:shoeId/colors/:colorId/quantities', (req, res) => {
   let { shoeId, colorId } = req.params;
-  shoes.get.quantity(shoeId, colorId)
-  .then(result => {
-    res.status(200).send(result);
-  })
-  .catch(err => {
-    console.error(err);
-    res.status(500).end();
-  });
+  const searchTerm = shoeId + ':' + colorId;
+  try {
+    client.get(searchTerm, async (err, quantities) => {
+      if (err) throw err;
+
+      if (quantities) {
+        res.status(200).send(JSON.parse(quantities));
+      }
+
+      else {
+        shoes.get.quantity(shoeId, colorId)
+        .then(result => {
+          client.setex(searchTerm, 600, JSON.stringify(result));
+          res.status(200).send(result);
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).end();
+        });
+      }
+    })
+  } catch(err) {
+    res.status(500).send(err);
+  }
 });
 
 app.listen(PORT, () => {
