@@ -1,7 +1,7 @@
 # somebirdsColorAndSizeSelection
 Shoe color &amp; size selection service
 
-<img src="/sampleScreenshot.png" width="100">
+<img src="/sampleScreenshot.png" width="250">
 
 ## Repo Setup
 ### Run npm install
