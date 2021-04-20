@@ -3,3 +3,4 @@ newrelic*
 *.pem
 *.sh
 *.env
+*bundle.js
